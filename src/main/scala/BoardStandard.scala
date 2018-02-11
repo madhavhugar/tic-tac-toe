@@ -18,11 +18,6 @@ private class BoardStandard() {
     }
   }
 
-  /** Adds a move of a player */
-  def addEntry(player: Player, position: (Int, Int)): Unit = {
-    assert(position._1 < 3 && position._2 < 3)
-
-  }
 
   /** Console prints the board */
   def printBoard(x: Player,o: Player): Unit = {

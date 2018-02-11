@@ -12,7 +12,8 @@ private class Player(val name: String, val sign: Char) {
   private var movesList: Seq[(Int, Int)] = Seq()
 
   /** Updates the list of player moves*/
-  protected def addPlayerMove(position: (Int, Int)): Unit = {
+  def addPlayerMove(position: (Int, Int)): Unit = {
+    assert(position._1 < 3 && position._2 < 3)
     movesList = position +: movesList
   }
 
