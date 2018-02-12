@@ -23,9 +23,9 @@ private class BoardStandard() {
     }
   }
 
+  /** Checks if the entered position is invalid or has already been taken*/
   def positionTaken(position: (Int, Int)): Boolean = {
-    assert(position._1 < 3 && position._2 < 3)
-    if(playersMovesSet.contains(position)) {
+    if(playersMovesSet.contains(position) && !(position._1 < 3 && position._2 < 3)) {
       println("Invalid or occupied position")
       true
     } else {
@@ -34,6 +34,7 @@ private class BoardStandard() {
     }
   }
 
+  /** Checks if a player has won*/
   def checkWinner(player: Player): Boolean = {
     val moves = player.getMovesList
 
@@ -44,7 +45,6 @@ private class BoardStandard() {
           if (moves.contains(i, j))
             count += 1
         }
-        print(".")
         if (count == 3) return true
       }
 
@@ -55,7 +55,6 @@ private class BoardStandard() {
           if (moves.contains(i, j))
             count += 1
         }
-        print(".")
         if (count == 3) return true
       }
 
@@ -65,7 +64,6 @@ private class BoardStandard() {
         if (moves.contains(i, i))
           count += 1
       }
-      print(".")
       if (count == 3) return true
       count = 0
       for (i <- 0 until 3) {
@@ -74,11 +72,19 @@ private class BoardStandard() {
             count += 1
         }
       }
-      print(".")
       if (count == 3) return true
 
     false
   }
+
+  /** Checks for a draw between the players*/
+  def checkDraw(): Boolean = {
+    if(playersMovesSet.size == 9)
+      true
+    else
+      false
+  }
+
 
   /** Console prints the board */
   def printBoard(x: Player,o: Player): Unit = {
@@ -88,17 +94,18 @@ private class BoardStandard() {
       for (j <- 0 until 3) {
         val currPosition: (Int, Int) = (i, j)
         if (xMoves.contains(currPosition)) {
-          print(s" $x.sign ")
+          print(s" ${x.sign} ")
         }
         else if (oMoves.contains(currPosition)) {
-          print(s" $o.sign ")
+          print(s" ${o.sign} ")
         }
         else {
           print("   ")
         }
-        print("|")
+        if(j < 2) print("|")
       }
-      print("---------")
+      println("")
+      if(i < 2) println("-----------")
     }
   }
 
